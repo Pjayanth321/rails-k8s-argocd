@@ -5,7 +5,7 @@ metadata:
   namespace: rails-k8s-app
 spec:
   selector:
-    app: rails-app
+    app: rails
   ports:
     - port: 3000
       targetPort: 3000
