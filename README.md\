@@ -1,0 +1,7 @@
+# Step 2 – Kubernetes Deployment
+
+This folder contains all Kubernetes manifests and screenshots for deploying the Rails + PostgreSQL application using Minikube.
+
+## Files:
+- YAML files for Deployment, StatefulSet, and Services
+- Screenshots of working Minikube setup, kubectl outputs, and application in browser

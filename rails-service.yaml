@@ -5,9 +5,9 @@ metadata:
   namespace: rails-k8s-app
 spec:
   selector:
-    app: rails-app
+    app: rails
   ports:
-  - port: 80
-    targetPort: 3000
-    protocol: TCP
-  type: ClusterIP
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+  type: NodePort  # Or ClusterIP if using port-forwarding
