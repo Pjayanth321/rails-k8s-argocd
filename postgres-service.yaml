@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: db
+  namespace: rails-k8s-app  # ✅ ADD THIS
 spec:
   ports:
     - port: 5432
