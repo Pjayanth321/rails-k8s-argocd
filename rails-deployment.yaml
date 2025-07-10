@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: rails-app
+  namespace: rails-k8s-app  # ✅ Add this line
 spec:
   replicas: 1
   selector:
@@ -15,7 +16,7 @@ spec:
       containers:
       - name: rails
         image: rails-k8s-app:latest
-        imagePullPolicy: IfNotPresent   # ✅ use local image built with Minikube
+        imagePullPolicy: IfNotPresent  # ✅ use local image built with Minikube
         ports:
         - containerPort: 3000
         env:
