@@ -1,26 +1,41 @@
-apiVersion: apps/v1 kind: StatefulSet metadata:
-  name: postgres
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: db
   namespace: rails-k8s-app
 spec:
   selector:
+    app: postgres
+  ports:
+    - port: 5432
+      targetPort: 5432
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres
+  namespace: rails-k8s-app
+spec:
+  serviceName: "db"
+  replicas: 1
+  selector:
     matchLabels:
       app: postgres
-  serviceName: "postgres"
-  replicas: 1
   template:
     metadata:
       labels:
         app: postgres
     spec:
       containers:
-      - name: postgres
-        image: postgres:13
-        ports:
-        - containerPort: 5432
-        env:
-        - name: POSTGRES_USER
-          value: myuser
-        - name: POSTGRES_PASSWORD
-          value: mypassword
-        - name: POSTGRES_DB
-          value: mydb
+        - name: postgres
+          image: postgres:15
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_USER
+              value: myapp
+            - name: POSTGRES_PASSWORD
+              value: password
+            - name: POSTGRES_DB
+              value: myapp_development
