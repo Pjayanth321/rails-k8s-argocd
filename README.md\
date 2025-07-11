@@ -1,7 +1,94 @@
-# Step 2 – Kubernetes Deployment
+🚀 Rails + PostgreSQL Deployment using Docker, Kubernetes, and ArgoCD (GitOps)
 
-This folder contains all Kubernetes manifests and screenshots for deploying the Rails + PostgreSQL application using Minikube.
+This repository demonstrates a 3-step deployment of a simple Ruby on Rails application backed by PostgreSQL using:
 
-## Files:
-- YAML files for Deployment, StatefulSet, and Services
-- Screenshots of working Minikube setup, kubectl outputs, and application in browser
+1. **Docker Compose**
+2. **Kubernetes with Minikube**
+3. **ArgoCD for GitOps deployment**
+
+📦 Step 1: Docker Deployment
+
+In this step, we containerized a Rails app and a PostgreSQL database using Docker and Docker Compose.
+
+📁 Files Used
+- `Dockerfile` – Builds the Rails app image
+- `docker-compose.yml` – Sets up Rails and PostgreSQL containers
+- `init.sql` – Initializes the database
+
+▶️ How to Run
+```bash
+docker-compose up
+```
+
+---
+
+☸️ Step 2: Kubernetes Deployment with Minikube
+
+The Docker-based app was converted to run in a local Kubernetes cluster using Minikube.
+
+✅ Components
+- **Rails App Deployment + Service**
+- **PostgreSQL StatefulSet + Service**
+- **PersistentVolume & PersistentVolumeClaim**
+
+ 📁 Files Used
+- `k8s-manifests/` directory containing YAML files:
+  - `rails-deployment.yaml`
+  - `postgres-statefulset.yaml`
+  - `services.yaml`
+  - `pvc.yaml`
+
+▶️ How to Deploy
+```bash
+kubectl apply -f k8s-manifests/
+```
+
+---
+
+🔁 Step 3: GitOps with ArgoCD
+
+ArgoCD was used to implement GitOps for continuous deployment of the Rails application from this GitHub repo.
+
+🛠 Setup Summary
+1. ArgoCD was installed in Minikube.
+2. ArgoCD synced this repo and deployed the Kubernetes manifests automatically.
+3. RBAC and config maps were customized.
+
+📁 Files Used
+- `application.yaml` – Defines the ArgoCD application
+- `argocd-cm.yaml` – Customizes the ArgoCD UI and settings
+- `argocd-rbac-cm.yaml` – Sets user access levels
+
+▶️ Access ArgoCD UI
+```bash
+kubectl port-forward svc/argocd-server -n argocd 8080:443
+```
+Then open: [https://localhost:8080](https://localhost:8080)
+
+---
+
+📸 Screenshots
+
+Refer to the `screenshots/` folder for the following proof:
+
+- Docker Compose running successfully
+- Minikube pods and services
+- ArgoCD UI access and successful app sync
+- ArgoCD application settings and Git repo integration
+
+---
+
+👨‍💻 Author
+
+**Name:** P. Jayanth  
+**GitHub:** [Pjayanth321](https://github.com/Pjayanth321)  
+**Email:** pjayanth@gitam.in
+
+🏁 Conclusion
+
+This project walks through the full modern DevOps workflow:
+- From **containerization** (Docker),
+- To **orchestration** (Kubernetes),
+- To **automated deployment** (ArgoCD + GitOps)
+
+Feel free to fork or contribute!
