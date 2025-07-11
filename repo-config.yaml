@@ -1,0 +1,14 @@
+cat <<EOF > repo-config.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: gitops-repo-secret
+  namespace: argocd
+  labels:
+    argocd.argoproj.io/secret-type: repository
+stringData:
+  url: https://github.com/Pjayanth321/rails-k8s-argocd
+  username: Pjayanth321
+  password: <your-personal-access-token>
+  type: git
+EOF
